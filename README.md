@@ -22,7 +22,9 @@ Practice on Google Cloud Platform
 - Please choose `europe-west3-b`as default zone and `europe-west3` as default region- Install `kubectl`
 - Configure project: `gcloud config set project <YOUR_GCP_PROJECT>`
 ### Install GKE
-```PROJECT_ID=$(gcloud config get-value project)gcloud services enable container.googleapis.comgcloud container clusters create di-nttdata --machine-type=n1-standard-2 --num-nodes=3 --zone=europe-west3-b --project=$PROJECT_IDgcloud container clusters get-credentials di-nttdata --zone=europe-west3-b --project=$PROJECT_ID```
+```PROJECT_ID=$(gcloud config get-value project)
+gcloud services enable container.googleapis.comgcloud container clusters create di-nttdata --machine-type=n1-standard-2 --num-nodes=3 --zone=europe-west3-b --project=$PROJECT_ID
+gcloud container clusters get-credentials di-nttdata --zone=europe-west3-b --project=$PROJECT_ID```
 ### Create Jenkins instance- Create Compute Engine instance
 ```gcloud beta compute --project=$PROJECT_ID instances create jenkins --zone=europe-west3-b --machine-type=e2-medium --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --tags=jenkins-instance --image=debian-10-buster-v20210316 --image-project=debian-cloud --boot-disk-size=20GB --boot-disk-type=pd-balanced --boot-disk-device-name=jenkins-boot --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any```
 - Grant access to Jenkins UI```gcloud compute firewall-rules --project=$PROJECT_ID create fw-jenkins-http --source-ranges=<YOUR_IP_ADDRESS> --allow=tcp:443,tcp:8080 --direction=IN --network=default --target-tags=jenkins-instance```
